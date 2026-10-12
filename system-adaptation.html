@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System Adaptation | AgriIS Consulting Hub</title>
+<style>
+/* ===== Shared design tokens (replace with the team's master values if they differ) ===== */
+:root {
+    --primary-dark: #1d3b2f;
+    --primary: #2f6b4f;
+    --accent: #e3b94a;
+    --accent-soft: #fbf3d9;
+    --white: #ffffff;
+    --bg: #f6f7f4;
+    --text: #1f2a24;
+    --light-text: #5b665f;
+    --border: #d8ddd6;
+    --panel: #ffffff;
+    --note-bg: #eaf3ee;
+    --warn-bg: #fdf0e6;
+    --warn-border: #d9822b;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 1.02rem;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== Navigation Header Styles (as supplied) ===== */
+.top-navbar {
+    background-color: var(--primary-dark);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid var(--accent);
+}
+
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 64px;
+}
+
+.nav-brand {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-brand span {
+    color: var(--accent);
+    font-weight: 400;
+    font-size: 0.95rem;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--white);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active {
+    color: var(--primary-dark);
+    background-color: var(--accent);
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .nav-container {
+        flex-direction: column;
+        padding: 12px 16px;
+        gap: 10px;
+    }
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+    .nav-link {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+}
+
+/* ===== Hero / page header ===== */
+header {
+    background: var(--primary);
+    color: var(--white);
+    padding: 56px 0 48px;
+    border-bottom: 6px solid var(--accent);
+}
+header h1 {
+    margin: 0 0 10px;
+    font-size: clamp(1.9rem, 4vw, 2.7rem);
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+}
+header p {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #e6efe9;
+    max-width: 760px;
+}
+
+/* ===== Layout ===== */
+.page-layout {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 40px;
+    padding: 36px 0 20px;
+}
+@media (max-width: 900px) {
+    .page-layout { grid-template-columns: 1fr; gap: 20px; }
+}
+
+.toc {
+    position: sticky;
+    top: 90px;
+    align-self: start;
+    font-size: 0.9rem;
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+}
+.toc h2 { font-size: 0.95rem; margin: 0 0 8px; color: var(--primary-dark); }
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: 0; }
+.toc a {
+    display: block;
+    padding: 5px 0;
+    color: var(--light-text);
+    text-decoration: none;
+}
+.toc a:hover, .toc a:focus-visible { color: var(--primary); text-decoration: underline; }
+@media (max-width: 900px) {
+    .toc { position: static; border-left: none; border-top: 3px solid var(--accent); padding: 12px 0 0; }
+}
+
+main section {
+    margin-bottom: 44px;
+    scroll-margin-top: 90px;
+}
+main h2 {
+    font-size: 1.6rem;
+    color: var(--primary-dark);
+    margin: 0 0 14px;
+    line-height: 1.3;
+}
+main h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin: 26px 0 8px;
+}
+main p { max-width: 74ch; margin: 0 0 14px; }
+main ul, main ol { max-width: 74ch; padding-left: 22px; margin: 0 0 16px; }
+main li { margin-bottom: 6px; }
+
+.lead { font-size: 1.12rem; color: var(--text); }
+
+.callout {
+    background: var(--note-bg);
+    border-left: 5px solid var(--primary);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 20px 0;
+    max-width: 78ch;
+}
+.callout strong:first-child { color: var(--primary-dark); }
+.callout.warn {
+    background: var(--warn-bg);
+    border-left-color: var(--warn-border);
+}
+.callout p:last-child { margin-bottom: 0; }
+
+/* Tables */
+.table-wrap {
+    overflow-x: auto;
+    margin: 18px 0 24px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--panel);
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.94rem; min-width: 620px; }
+caption {
+    text-align: left;
+    padding: 12px 14px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    background: var(--accent-soft);
+    border-bottom: 1px solid var(--border);
+}
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+th { background: #f0f3ee; font-weight: 600; color: var(--primary-dark); }
+tr:last-child td { border-bottom: none; }
+
+/* Staircase for analytics maturity */
+.stairs { display: grid; gap: 12px; margin: 20px 0 26px; }
+.stair {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 8px solid var(--primary);
+    padding: 14px 18px;
+    border-radius: 6px;
+}
+.stair:nth-child(1) { margin-right: 18%; border-left-color: #9bb8a8; }
+.stair:nth-child(2) { margin-right: 12%; border-left-color: #6e9d84; }
+.stair:nth-child(3) { margin-right: 6%;  border-left-color: #3f7d5e; }
+.stair:nth-child(4) { margin-right: 0;   border-left-color: var(--primary-dark); }
+.stair h3 { margin: 0 0 4px; font-size: 1.08rem; color: var(--primary-dark); }
+.stair .q { font-style: italic; color: var(--light-text); margin: 0 0 8px; }
+.stair p { margin-bottom: 6px; max-width: none; }
+@media (max-width: 700px) { .stair { margin-right: 0 !important; } }
+
+/* Flow diagram (data to decision) */
+.flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: stretch; margin: 18px 0 24px; }
+.flow .step {
+    flex: 1 1 150px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--primary);
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 0.92rem;
+}
+.flow .step b { display: block; color: var(--primary-dark); margin-bottom: 4px; }
+
+/* Interactive tool */
+.tool {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-top: 5px solid var(--accent);
+    border-radius: 6px;
+    padding: 20px 22px;
+    margin: 22px 0;
+}
+.tool h3 { margin-top: 0; }
+.tool label { font-weight: 600; display: block; margin-bottom: 6px; }
+.tool select {
+    width: 100%;
+    max-width: 560px;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 1px solid #aab4ac;
+    border-radius: 4px;
+    background: var(--white);
+    color: var(--text);
+}
+.tool select:focus-visible, .nav-link:focus-visible, a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+.result { margin-top: 16px; padding: 14px 16px; background: var(--note-bg); border-radius: 6px; min-height: 60px; }
+.result p { margin: 0 0 8px; max-width: none; }
+.tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--primary-dark);
+    color: var(--white);
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+/* Details / accordions */
+details {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    max-width: 78ch;
+}
+summary {
+    cursor: pointer;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+details[open] summary { border-bottom: 1px solid var(--border); }
+details > div { padding: 12px 16px 4px; }
+
+.refs { font-size: 0.92rem; color: var(--light-text); }
+.refs li { margin-bottom: 8px; }
+sup.cite { font-size: 0.72rem; color: var(--primary); font-weight: 600; }
+
+/* ===== Footer (as supplied) ===== */
+footer {
+    background-color: #e9ecef;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: var(--light-text);
+    margin-top: 40px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .nav-link { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top Navigation Bar -->
+<nav class="top-navbar">
+    <div class="nav-container">
+        <a href="#" class="nav-brand">AgriIS <span>| Consulting Hub</span></a>
+        <ul class="nav-menu">
+            <li><a href="data-management.html" class="nav-link">1. Data Management</a></li>
+            <li><a href="ethics-popia.html" class="nav-link">2. Ethics &amp; POPIA</a></li>
+            <li><a href="ai-dss.html" class="nav-link">3. AI &amp; DSS</a></li>
+            <li><a href="enterprise-systems.html" class="nav-link">4. Enterprise Systems</a></li>
+            <li><a href="system-adaptation.html" class="nav-link active">5. System Adaptation</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero / Page Header -->
+<header>
+    <div class="container">
+        <h1>Adapting &amp; Customising Information Systems</h1>
+        <p>Fitting systems to smallholder farms, the processing plant and retail buyers, instead of forcing them to fit the software</p>
+    </div>
+</header>
+
+<div class="container">
+<div class="page-layout">
+
+    <aside class="toc" aria-label="On this page">
+        <h2>On this page</h2>
+        <ol>
+            <li><a href="#why">Why one size does not fit</a></li>
+            <li><a href="#spectrum">Your options: a spectrum</a></li>
+            <li><a href="#chooser">Tool: which route suits you?</a></li>
+            <li><a href="#needs">Start with real needs</a></li>
+            <li><a href="#areas">What can be adapted</a></li>
+            <li><a href="#example">Worked example</a></li>
+            <li><a href="#tradeoffs">Costs and trade-offs</a></li>
+            <li><a href="#adoption">Getting people to use it</a></li>
+            <li><a href="#governance">Governing change</a></li>
+            <li><a href="#checklist">Checklist before you customise</a></li>
+            <li><a href="#takeaways">Key takeaways</a></li>
+            <li><a href="#references">References</a></li>
+        </ol>
+    </aside>
+
+    <main>
+
+        <!-- 1 -->
+        <section id="why">
+            <h2>Why one size does not fit</h2>
+            <p class="lead">Most software is designed for a typical business: one office, reliable internet, staff who use computers daily. A smallholder supply chain is rarely typical.</p>
+            <p>Consider what a system for this partnership has to cope with:</p>
+            <ul>
+                <li><strong>Seasonality.</strong> Activity is concentrated in planting and harvest peaks, then quiet for months. Many systems assume steady, daily transactions.</li>
+                <li><strong>Patchy connectivity.</strong> Farms may have weak signal and expensive data. A system that only works online will not be used in the field.</li>
+                <li><strong>Mixed digital skills and languages.</strong> Members may be more comfortable in isiZulu, Sesotho, Xitsonga, Tshivenda or Afrikaans than in English, and many will use a basic smartphone or feature phone rather than a laptop.</li>
+                <li><strong>Agricultural data structures.</strong> Plots instead of customers, varieties, planting and harvest dates, grades, batches that must be traced from farm to shelf.</li>
+                <li><strong>Collective ownership.</strong> A cooperative has members, a committee, shared obligations and payment rules that standard accounting or sales software does not model.</li>
+                <li><strong>Several organisations.</strong> The cooperative, the processor and the retailers each have their own systems, and each need to see different parts of the same information.</li>
+            </ul>
+            <p>An information system that ignores these realities will be abandoned, or worse, will push people into awkward workarounds that corrupt the data. <em>Adaptation</em> is the work of closing the gap between what the software offers and what the organisation needs.</p>
+            <div class="callout">
+                <p><strong>A warning from research.</strong> Davenport observed that enterprise systems carry assumptions about how an organisation should work, and that forcing a business to fit those assumptions can damage the things that make it competitive.<sup class="cite">[1]</sup> The reverse mistake is also common: customising so heavily that the system becomes expensive and fragile. Good adaptation sits between the two.</p>
+            </div>
+        </section>
+
+        <!-- 2 -->
+        <section id="spectrum">
+            <h2>Your options: a spectrum</h2>
+            <p>Adapting a system is not a single choice. Research on tailoring enterprise systems describes a spectrum of options, from changing nothing to changing the underlying code.<sup class="cite">[2]</sup> The table adapts these options to this partnership.</p>
+            <div class="table-wrap">
+                <table>
+                    <caption>Adaptation options from lightest to heaviest</caption>
+                    <thead>
+                        <tr><th>Option</th><th>What it means</th><th>Agri example</th><th>Pros</th><th>Cons</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Use as is</strong></td>
+                            <td>Adopt a ready-made product and change your own processes to match</td>
+                            <td>Using standard accounting software for the cooperative's payments</td>
+                            <td>Cheapest, quickest, well supported</td>
+                            <td>May not capture plots, grades or member rules</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Configure</strong></td>
+                            <td>Use settings the product already offers, with no new code</td>
+                            <td>Adding custom fields for crop variety and plot size; setting grade-based price lists; translating labels</td>
+                            <td>Low cost, upgrades keep working, vendor supports it</td>
+                            <td>Limited to what the product allows</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Extend or integrate</strong></td>
+                            <td>Add small separate tools linked to the product through its official connections (APIs) or data exports</td>
+                            <td>A simple offline mobile app for recording deliveries that sends records to the accounting system</td>
+                            <td>Fills specific gaps; core system stays untouched</td>
+                            <td>Needs technical skills; connections must be maintained</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Customise</strong></td>
+                            <td>Change the product's own code or logic</td>
+                            <td>Rewriting the payment module to handle shared cooperative deductions</td>
+                            <td>Fits exactly</td>
+                            <td>Costly; can break at every upgrade; can tie you to one developer</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Build</strong></td>
+                            <td>Develop a bespoke system</td>
+                            <td>A purpose-built traceability and planning platform for the whole partnership</td>
+                            <td>Complete control</td>
+                            <td>Highest cost and risk; you carry maintenance forever</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><strong>A sensible rule of thumb:</strong> go only as far down the table as you must. Configure first, extend where the gap is real, and customise or build only for the few processes that truly make the partnership different. For a cooperative with limited budget and IT skills, the first three rows will usually cover almost everything.</p>
+        </section>
+
+        <!-- 3 -->
+        <section id="chooser">
+            <h2>Tool: which route suits you?</h2>
+            <div class="tool">
+                <h3>Answer four questions</h3>
+                <p>This is a simple guide to help discussion, not a final answer. Choose the answer that fits your situation best.</p>
+                <p>
+                    <label for="q1">1. How well does an existing product already match your main processes?</label>
+                    <select id="q1">
+                        <option value="">Select...</option>
+                        <option value="3">Mostly matches; only a few fields or reports are missing</option>
+                        <option value="2">Matches about half; some important steps are missing</option>
+                        <option value="1">Poor match; our way of working is quite different</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="q2">2. What is your budget and technical support?</label>
+                    <select id="q2">
+                        <option value="">Select...</option>
+                        <option value="1">Small budget; no technical staff</option>
+                        <option value="2">Moderate budget; can hire a part-time or contract developer</option>
+                        <option value="3">Large budget and ongoing technical support</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="q3">3. How many farms or users will use it?</label>
+                    <select id="q3">
+                        <option value="">Select...</option>
+                        <option value="1">Under 50 members</option>
+                        <option value="2">50 to 500</option>
+                        <option value="3">More than 500, or several organisations connected</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="q4">4. Is the unusual process a source of competitive advantage or a legal requirement?</label>
+                    <select id="q4">
+                        <option value="">Select...</option>
+                        <option value="1">No, it is just how we have always done it</option>
+                        <option value="2">Somewhat, it matters but alternatives exist</option>
+                        <option value="3">Yes, it is essential and nothing ready-made does it</option>
+                    </select>
+                </p>
+                <div class="result" id="chooserResult" aria-live="polite">Answer all four questions to see a suggested route.</div>
+            </div>
+        </section>
+
+        <!-- 4 -->
+        <section id="needs">
+            <h2>Start with real needs</h2>
+            <p>Adaptation goes wrong when it starts from the software's features. It goes right when it starts from the work people do and the problems they face. In this partnership each group needs something different from the same shared information.</p>
+            <div class="table-wrap">
+                <table>
+                    <caption>Needs by stakeholder</caption>
+                    <thead>
+                        <tr><th>Stakeholder</th><th>Main needs</th><th>What the system should provide</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Smallholder farmers</strong></td>
+                            <td>Proof of what they delivered, fast and fair payment, simple tools, control over their own data</td>
+                            <td>Phone-based delivery receipts (including SMS or WhatsApp), payment statements in their language, clear view of only their own records</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cooperative managers and committee</strong></td>
+                            <td>Member register, aggregate harvest view, payments, reporting to members and funders</td>
+                            <td>Member and plot register, dashboards, payment calculation with cooperative deductions, exportable reports</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Processing facility</strong></td>
+                            <td>Predictable volumes, quality assurance, batch traceability, capacity planning</td>
+                            <td>Harvest forecasts, intake scheduling, grading records and batch numbers that link back to farms</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Retailers</strong></td>
+                            <td>Reliable supply, food safety and origin evidence, delivery times</td>
+                            <td>Traceability reports, delivery tracking and the quality records buyers and certification schemes expect</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3>How to find out what people need</h3>
+            <ul>
+                <li><strong>Watch the work.</strong> Spend a day at a delivery point and at the plant's intake bay. Notice every piece of paper, call and workaround.</li>
+                <li><strong>Talk to farmers in groups and individually.</strong> Some people will not raise problems in front of the committee or the processor.</li>
+                <li><strong>Map the process.</strong> Draw each step from planting to payment and mark where information is lost, retyped or disputed.</li>
+                <li><strong>Separate needs from wants.</strong> Rank requirements as essential, important or nice to have. Customise only for the essentials that no standard option can meet.</li>
+                <li><strong>Test with a prototype.</strong> Let a few farmers try a simple version before anything is built in full. Involving users early is one of the most consistent findings in systems implementation.</li>
+            </ul>
+        </section>
+
+        <!-- 5 -->
+        <section id="areas">
+            <h2>What can be adapted</h2>
+            <p>Almost every system can be adapted in six areas. Thinking in these areas helps you ask suppliers precise questions.</p>
+            <details open>
+                <summary>1. Data structure: what the system records</summary>
+                <div>
+                    <p>Standard systems record customers, products and invoices. This supply chain also needs <strong>farmers, plots (with size and GPS location), crops and varieties, planting and expected harvest dates, grades and batches</strong>. Ask whether you can add your own fields and relationships without programming. Linking each delivery to a farm and plot is what makes traceability possible later. See <a href="data-management.html">Data Management</a> for why consistent structure matters.</p>
+                </div>
+            </details>
+            <details>
+                <summary>2. Interface: how people use it</summary>
+                <div>
+                    <p>For farmers this usually means <strong>offline-first mobile use</strong> that stores entries on the phone and syncs when signal returns, simple screens with icons and large buttons, and local language options. Where smartphones are scarce, SMS or USSD menus or a WhatsApp-based flow can work for receipts and alerts. Test with real users on the devices they own.</p>
+                </div>
+            </details>
+            <details>
+                <summary>3. Workflows: how work moves through the system</summary>
+                <div>
+                    <p>A delivery might need to flow like this: farmer declares expected harvest, collection is scheduled, the load is weighed, the processor grades it, the farmer is notified, and payment is approved and paid. Check whether the product lets you set the steps, approvals and notifications to match, including who must approve a payment or a rejected load.</p>
+                </div>
+            </details>
+            <details>
+                <summary>4. Reports and dashboards: what people see</summary>
+                <div>
+                    <p>Each group needs a different view. A farmer needs a clear statement of their deliveries and payments. The committee needs member and crop totals. The processor needs forecast intake by week. Retailers need origin and quality evidence. Reports should be configurable without a developer where possible.</p>
+                </div>
+            </details>
+            <details>
+                <summary>5. Roles and permissions: who sees what</summary>
+                <div>
+                    <p>This is where adaptation meets privacy. A well-adapted system lets each farmer see only their own records, lets the committee see member-level information needed for its role, and lets the processor and retailers see only the aggregate or traceability data they are entitled to. These rules should reflect what farmers have agreed to, and should be set up in line with POPIA. See <a href="ethics-popia.html">Ethics &amp; POPIA</a>.</p>
+                </div>
+            </details>
+            <details>
+                <summary>6. Integration: how it connects to other systems</summary>
+                <div>
+                    <p>The cooperative's tool must exchange data with the processor's enterprise system and perhaps the retailers' ordering systems. Decide early what is exchanged, in which format, how often, and who is responsible when the connection fails. See <a href="enterprise-systems.html">Enterprise Systems</a> for the integration challenges.</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- 6 -->
+        <section id="example">
+            <h2>Worked example: a delivery recording app</h2>
+            <p>This is a hypothetical but realistic example of adaptation through configuring and extending, instead of customising.</p>
+            <p><strong>Problem.</strong> A cooperative of about 60 farmers delivers vegetables to a processor. Weights are written on paper slips at the weighbridge, retyped later, and regularly disputed. Payments are weeks late. The processor wants farm-level traceability for its retail customers.</p>
+            <div class="table-wrap">
+                <table>
+                    <caption>From problem to adapted solution</caption>
+                    <thead>
+                        <tr><th>Step</th><th>Decision</th><th>Reason</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. Map the process</td>
+                            <td>Interview farmers, weighbridge staff and the finance clerk; draw the delivery-to-payment flow</td>
+                            <td>Exposes that errors enter at retyping, not at weighing</td>
+                        </tr>
+                        <tr>
+                            <td>2. Choose the route</td>
+                            <td>Choose an existing accounting package plus a low-cost offline data-collection app, rather than building a new system</td>
+                            <td>Budget is small; a ready-made tool covers 80% of the need</td>
+                        </tr>
+                        <tr>
+                            <td>3. Configure</td>
+                            <td>Add farmer ID, plot, crop variety and grade fields; set the price list by grade; set labels in the local language</td>
+                            <td>Captures what traceability needs without code</td>
+                        </tr>
+                        <tr>
+                            <td>4. Extend</td>
+                            <td>Weighbridge staff record deliveries on a tablet, which prints or sends a receipt and syncs to the accounts system</td>
+                            <td>Removes retyping; farmers hold proof of delivery immediately</td>
+                        </tr>
+                        <tr>
+                            <td>5. Set permissions</td>
+                            <td>Farmers see only their own records; the processor sees batch and farm origin for traceability but not members' finances</td>
+                            <td>Limits data use to the purpose agreed with members</td>
+                        </tr>
+                        <tr>
+                            <td>6. Pilot</td>
+                            <td>Run the new method for one crop and 10 farmers for a season, alongside paper</td>
+                            <td>Finds problems cheaply and builds champions</td>
+                        </tr>
+                        <tr>
+                            <td>7. Review and roll out</td>
+                            <td>Compare disputes, payment speed and data errors with the old method; adjust and extend to all members</td>
+                            <td>Decisions are based on evidence</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="callout">
+                <p><strong>What was not customised.</strong> The accounting package's code stayed untouched. Everything the cooperative needed was achieved with settings and a small linked app, so upgrades will not break the system.</p>
+            </div>
+        </section>
+
+        <!-- 7 -->
+        <section id="tradeoffs">
+            <h2>Costs and trade-offs</h2>
+            <p>Every adaptation has a price beyond the initial work. Weigh these before you agree to change a system.</p>
+            <div class="table-wrap">
+                <table>
+                    <caption>Trade-offs of heavy adaptation</caption>
+                    <thead>
+                        <tr><th>Trade-off</th><th>Explanation</th><th>Practical response</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Upgrade problems</strong></td>
+                            <td>Changes to a product's code may stop working when the vendor releases updates, forcing repeated rework</td>
+                            <td>Prefer configuration and integrations over code changes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Developer dependence</strong></td>
+                            <td>If one person built it, the organisation depends on that person to maintain it</td>
+                            <td>Require documentation and source code ownership in the contract</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total cost of ownership</strong></td>
+                            <td>Licences, hosting, support, training, data and later changes cost more than the purchase price</td>
+                            <td>Calculate costs over three to five years</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Complexity</strong></td>
+                            <td>The more customised the system, the harder it is to train new staff and to fix</td>
+                            <td>Keep to the essentials; remove unused features</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vendor lock-in</strong></td>
+                            <td>Custom features may only work in one product, making it hard to switch</td>
+                            <td>Require data export in open formats such as CSV</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Speed versus fit</strong></td>
+                            <td>Waiting for a perfect fit can delay benefits for a whole season</td>
+                            <td>Start with a minimum workable version, improve in stages</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="callout warn">
+                <p><strong>Customisation can create technical debt.</strong> A quick change that works today can make every future change slower and more expensive. Before approving a customisation, ask: <em>"Could we change our process or use a setting instead?"</em></p>
+            </div>
+        </section>
+
+        <!-- 8 -->
+        <section id="adoption">
+            <h2>Getting people to use it</h2>
+            <p>A perfectly adapted system that nobody uses has failed. Research on technology acceptance finds that people adopt a system mainly when they believe it is <strong>useful</strong> for their work and <strong>easy to use</strong>.<sup class="cite">[3]</sup> Diffusion research adds that people are more likely to try something they can observe working for others first.<sup class="cite">[4]</sup> Both ideas shape how to introduce systems into a farming community.</p>
+            <ul>
+                <li><strong>Show the benefit to the farmer first.</strong> Quick receipts and faster payments are more convincing than reports for the processor.</li>
+                <li><strong>Use respected champions.</strong> Choose trusted farmers and extension officers to pilot and demonstrate.</li>
+                <li><strong>Train in practice, in the local language,</strong> at times that suit the farming calendar, and provide a simple help line or contact person.</li>
+                <li><strong>Run old and new together for a while.</strong> Parallel running builds confidence and exposes errors before payments depend on the system.</li>
+                <li><strong>Listen and visibly act on feedback.</strong> When farmers see their suggestions change the system, trust grows.</li>
+                <li><strong>Plan for turnover.</strong> Document processes so a new clerk or committee member can learn them.</li>
+            </ul>
+            <p>Structured change models such as ADKAR break this into awareness, desire, knowledge, ability and reinforcement.<sup class="cite">[5]</sup> They are a useful checklist: do people understand why the change is happening, want it, know how to use it, are able to do it in practice, and are supported to keep doing it?</p>
+        </section>
+
+        <!-- 9 -->
+        <section id="governance">
+            <h2>Governing change</h2>
+            <p>Systems keep changing after launch. Without agreed rules, small unrecorded changes accumulate until nobody knows how the system works.</p>
+            <ul>
+                <li><strong>Name a system owner</strong> from the business, not only IT, who is accountable for the system serving its purpose.</li>
+                <li><strong>Use a simple change process:</strong> request, assess need and cost, decide, test, record. Keep a log.</li>
+                <li><strong>Include all parties in decisions that affect shared data.</strong> A change that gives the processor more access to farmer data should be agreed with the cooperative and its members.</li>
+                <li><strong>Review yearly.</strong> Ask what is used, what is ignored, what workarounds have appeared and what should be removed.</li>
+            </ul>
+        </section>
+
+        <!-- 10 -->
+        <section id="checklist">
+            <h2>Checklist before you customise</h2>
+            <details>
+                <summary>Open the checklist</summary>
+                <div>
+                    <ul>
+                        <li>Have we described the problem in terms of the work, not the software?</li>
+                        <li>Have farmers, staff at the plant and buyers all been consulted?</li>
+                        <li>Could a setting, a change of process, or an existing product feature solve it?</li>
+                        <li>Does the change affect personal information, and have we considered POPIA and members' agreement?</li>
+                        <li>What will it cost over three to five years, including support and upgrades?</li>
+                        <li>Who will maintain it and is it documented?</li>
+                        <li>Can we get our data out in an open format if we change supplier?</li>
+                        <li>Does it work offline and in the languages our users need?</li>
+                        <li>Have we piloted it with real users before rolling out?</li>
+                        <li>How will we measure whether it worked?</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- 11 -->
+        <section id="takeaways">
+            <h2>Key takeaways</h2>
+            <ul>
+                <li>Systems built for typical businesses often do not fit seasonal, multi-party smallholder supply chains.</li>
+                <li>Adaptation is a spectrum. Configure first, extend where needed, and customise only the essentials.</li>
+                <li>Begin with the real work and real needs of farmers, the cooperative, the processor and retailers.</li>
+                <li>Roles and permissions are an ethical decision as well as a technical one.</li>
+                <li>Heavy customisation brings costs that last for years.</li>
+                <li>A system succeeds when people use it, which depends on usefulness, ease of use, training and trust.</li>
+            </ul>
+            <p>Back to: <a href="ai-dss.html">3. AI &amp; DSS</a> to see how adapted systems feed better decisions.</p>
+        </section>
+
+        <!-- References -->
+        <section id="references">
+            <h2>References</h2>
+            <ol class="refs">
+                <li>Davenport, T.H. (1998). Putting the enterprise into the enterprise system. <em>Harvard Business Review,</em> 76(4), pp. 121-131.</li>
+                <li>Brehm, L., Heinzl, A. and Markus, M.L. (2001). Tailoring ERP systems: a spectrum of choices and their implications. <em>Proceedings of the 34th Hawaii International Conference on System Sciences.</em></li>
+                <li>Davis, F.D. (1989). Perceived usefulness, perceived ease of use, and user acceptance of information technology. <em>MIS Quarterly,</em> 13(3), pp. 319-340.</li>
+                <li>Rogers, E.M. (2003). <em>Diffusion of Innovations</em> (5th ed.). New York: Free Press.</li>
+                <li>Hiatt, J.M. (2006). <em>ADKAR: A Model for Change in Business, Government and Our Community.</em> Loveland, CO: Prosci.</li>
+            </ol>
+            
+        </section>
+
+    </main>
+</div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>Information Systems Consultant Group (V1-3)</p>
+    </div>
+</footer>
+
+<script>
+(function () {
+    var ids = ["q1", "q2", "q3", "q4"];
+    var out = document.getElementById("chooserResult");
+
+    function update() {
+        var v = [];
+        for (var i = 0; i < ids.length; i++) {
+            var val = document.getElementById(ids[i]).value;
+            if (!val) { out.textContent = "Answer all four questions to see a suggested route."; return; }
+            v.push(parseInt(val, 10));
+        }
+        var fit = v[0], capacity = v[1], scale = v[2], essential = v[3];
+        var route, why;
+
+        if (fit === 3 && essential <= 2) {
+            route = "Configure";
+            why = "An existing product already matches most of your work. Use its settings for custom fields, price lists, reports and language labels, and avoid code changes.";
+        } else if (fit >= 2 && capacity === 1) {
+            route = "Configure, then extend lightly";
+            why = "With a small budget and no technical staff, rely on settings and low-cost add-ons such as a data-collection app that exports to your main system.";
+        } else if (essential === 3 && capacity >= 2 && fit < 3) {
+            route = "Extend or integrate (customise only the essential process)";
+            why = "A critical process is not covered by ready-made options. Build a small linked tool for that process, keep the core product unchanged, and make sure the work is documented.";
+        } else if (fit === 1 && essential === 3 && capacity === 3 && scale === 3) {
+            route = "Consider a bespoke build, after checking all other options";
+            why = "Poor fit, an essential need, a large user base and strong support are the conditions where a purpose-built platform can be justified. Plan for ongoing maintenance and governance.";
+        } else {
+            route = "Configure and extend";
+            why = "Start with an existing product, configure what you can, and add small integrations for real gaps. Revisit the decision after a pilot.";
+        }
+
+        out.innerHTML = '<p><span class="tag">' + route + '</span></p>' +
+            '<p>' + why + '</p>' +
+            '<p><strong>Remember:</strong> pilot with a small group of users first, and check the three-to-five-year cost before committing.</p>';
+    }
+
+    ids.forEach(function (id) {
+        document.getElementById(id).addEventListener("change", update);
+    });
+})();
+</script>
+</body>
+</html>
