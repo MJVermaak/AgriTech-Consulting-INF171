@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ethics, Privacy &amp; Security | AgriTech Supply Chain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1d2a22;
+      --mute: #5c6b61;
+      --forest: #143d2a;
+      --leaf: #2f7a4f;
+      --sun: #e9a93b;
+      --clay: #b8542f;
+      --cream: #f6f2e8;
+      --paper: #fffdf8;
+      --line: #e4dccb
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 64px
+    }
+
+    body {
+      margin: 0;
+      font: 16px/1.65 Inter, system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper)
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: Fraunces, Georgia, serif;
+      line-height: 1.15;
+      margin: 0 0 .5em;
+      color: var(--forest)
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      color: #fff;
+      letter-spacing: -.02em
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 3.4vw, 2.4rem)
+    }
+
+    h3 {
+      font-size: 1.2rem
+    }
+
+    p {
+      margin: 0 0 1em
+    }
+
+    a {
+      color: var(--leaf)
+    }
+
+    .wrap {
+      width: min(1100px, 92%);
+      margin: auto
+    }
+
+    section {
+      padding: 72px 0
+    }
+
+    .alt {
+      background: var(--cream)
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 10px
+    }
+
+    .lede {
+      max-width: 700px;
+      color: var(--mute);
+      font-size: 1.08rem;
+      margin-bottom: 34px
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 9;
+      background: rgba(255, 253, 248, .94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line)
+    }
+
+    nav .wrap {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 10px 0;
+      scrollbar-width: none
+    }
+
+    nav a {
+      white-space: nowrap;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: .86rem;
+      font-weight: 600;
+      padding: 6px 13px;
+      border-radius: 99px
+    }
+
+    nav a:hover {
+      background: var(--cream)
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: #e6efe8;
+      background: linear-gradient(160deg, #0e2b1d, var(--forest) 60%, #1f5a3b);
+      padding: 96px 0 110px
+    }
+
+    .hero svg {
+      position: absolute;
+      inset: auto 0 0 0;
+      width: 100%;
+      height: 150px;
+      opacity: .9
+    }
+
+    .hero p {
+      max-width: 620px;
+      font-size: 1.12rem;
+      color: #cfe0d3
+    }
+
+    .hero .tag {
+      color: var(--sun)
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+      position: relative
+    }
+
+    .chip {
+      padding: 8px 16px;
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 99px;
+      font-size: .88rem;
+      font-weight: 600;
+      color: #fff
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px
+    }
+
+    .g2 {
+      grid-template-columns: repeat(2, 1fr)
+    }
+
+    .g3 {
+      grid-template-columns: repeat(3, 1fr)
+    }
+
+    .g4 {
+      grid-template-columns: repeat(4, 1fr)
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px
+    }
+
+    .card p,
+    .card li {
+      color: var(--mute);
+      font-size: .94rem
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 18px
+    }
+
+    .card li {
+      margin-bottom: 6px
+    }
+
+    .callout {
+      margin-top: 26px;
+      padding: 22px 26px;
+      border-radius: 12px;
+      background: var(--forest);
+      color: #dbe8de
+    }
+
+    .callout strong {
+      color: var(--sun)
+    }
+
+    .callout p {
+      margin: 0
+    }
+
+    .cond {
+      counter-reset: c
+    }
+
+    .cond .card {
+      position: relative;
+      padding-top: 54px
+    }
+
+    .cond .card::before {
+      counter-increment: c;
+      content: counter(c);
+      position: absolute;
+      top: 14px;
+      left: 20px;
+      font: 700 1.9rem Fraunces, serif;
+      color: var(--sun)
+    }
+
+    .cond h3 {
+      font-size: 1.02rem;
+      margin-bottom: 6px
+    }
+
+    footer {
+      background: var(--forest);
+      color: #cfe0d3;
+      text-align: center;
+      padding: 48px 0
+    }
+
+    footer h2 {
+      color: #fff
+    }
+
+    @media(max-width:560px) {
+      section {
+        padding: 52px 0
+      }
+
+      .g2,
+      .g3,
+      .g4 {
+        grid-template-columns: 1fr
+      }
+    }
+
+    /* Navigation Header Styles */
+    .top-navbar {
+      background-color: var(--primary-dark);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 64px;
+    }
+
+    .nav-brand {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-brand span {
+      color: var(--accent);
+      font-weight: 400;
+      font-size: 0.95rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-link {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--white);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link.active {
+      color: var(--primary-dark);
+      background-color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Responsive adjustment for small screens */
+    @media (max-width: 900px) {
+      .nav-container {
+        flex-direction: column;
+        padding: 12px 16px;
+        gap: 10px;
+      }
+
+      .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .nav-link {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="top-navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand">AgriIS <span>| Consulting Hub</span></a>
+      <ul class="nav-menu">
+        <li><a href="data-management.html" class="nav-link">1. Data Management</a></li>
+        <li><a href="ethics-privacy-security.html" class="nav-link active">2. Ethics &amp; POPIA</a></li>
+        <li><a href="enterprise-systems.html" class="nav-link">3. Enterprise Systems</a></li>
+        <li><a href="system-adaptation.html" class="nav-link">4. System Adaptation</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap">
+      <span class="tag">AgriTech &amp; Food Supply Chain · Section 2</span>
+      <h1>Ethics, Privacy<br>&amp; Security</h1>
+      <p>How farmers, processors and retailers can share information responsibly, protect smallholder data and comply
+        with South African law.</p>
+      <div class="chips"><span class="chip">Data ethics</span><span class="chip">POPIA</span></div>
+    </div>
+    <svg viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 150V95Q300 40 600 80T1200 55V150Z" fill="#2f7a4f" opacity=".35" />
+      <path d="M0 150V115Q300 70 600 105T1200 85V150Z" fill="#e9a93b" opacity=".25" />
+      <path d="M0 150V132Q300 100 600 124T1200 112V150Z" fill="#fffdf8" />
+    </svg>
+  </header>
+
+  <nav>
+    <div class="wrap">
+      <a href="#ethics">Data ethics</a><a href="#popia">POPIA</a>
+    </div>
+  </nav>
+
+  <section class="alt" id="ethics">
+    <div class="wrap">
+      <span class="tag">Data ethics</span>
+      <h2>Four principles for agricultural data</h2>
+      <p class="lede">Collecting data does not give an organisation unrestricted rights to use or share it. Smallholders
+        often depend on larger partners, so fairness has to be designed in.</p>
+      <div class="grid g2">
+        <div class="card">
+          <h3>Ownership &amp; control</h3>
+          <p>A data governance agreement should state who may access each data type, for what purpose, for how long, and
+            when it can be shared.</p>
+          <ul>
+            <li>Farmers can view records about their operations</li>
+            <li>Clear rights over non-personal data such as aggregated yields</li>
+            <li>Route to raise concerns about misuse</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Transparency &amp; consent</h3>
+          <p>Privacy notices in plain language, translated for members. Consent must be informed, specific and freely
+            given, but it is not the only lawful basis under POPIA.</p>
+          <ul>
+            <li>Explain purposes before collecting</li>
+            <li>No hidden terms or misleading explanations</li>
+            <li>Space for questions</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fairness</h3>
+          <p>Production costs and alternative buyers can shift negotiating power. Data must not be turned against the
+            people who supplied it.</p>
+          <ul>
+            <li>Transparent, consistent purchasing criteria</li>
+            <li>Audit automated recommendations for bias</li>
+            <li>No sharing of individual commercial data with competitors</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Accuracy &amp; accountability</h3>
+          <p>Recording 500 crates instead of 50 can trigger wasted capacity, false commitments to retailers and payment
+            disputes.</p>
+          <ul>
+            <li>Validate at the point of entry</li>
+            <li>Log corrections and name an owner for data quality</li>
+            <li>A designated contact for complaints</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="popia">
+    <div class="wrap">
+      <span class="tag">South African law</span>
+      <h2>POPIA: the eight conditions</h2>
+      <p class="lede">The Protection of Personal Information Act 4 of 2013 applies whenever identifiable people, such as
+        farmers, drivers, employees or individual retailers, are involved. Anonymous aggregated yields may fall outside
+        it. A farm location that identifies a person may not.</p>
+      <div class="grid g4 cond">
+        <div class="card">
+          <h3>Accountability</h3>
+          <p>Assign responsibility for compliance.</p>
+        </div>
+        <div class="card">
+          <h3>Processing limitation</h3>
+          <p>Lawful, fair, minimal collection.</p>
+        </div>
+        <div class="card">
+          <h3>Purpose specification</h3>
+          <p>State why data is collected: harvest planning, delivery, payment.</p>
+        </div>
+        <div class="card">
+          <h3>Further processing</h3>
+          <p>Delivery data should not quietly become marketing data.</p>
+        </div>
+        <div class="card">
+          <h3>Information quality</h3>
+          <p>Keep records complete and current.</p>
+        </div>
+        <div class="card">
+          <h3>Openness</h3>
+          <p>Tell farmers what is collected and who receives it.</p>
+        </div>
+        <div class="card">
+          <h3>Security safeguards</h3>
+          <p>Technical and organisational protection (s19).</p>
+        </div>
+        <div class="card">
+          <h3>Data subject participation</h3>
+          <p>Access, correction and deletion where applicable.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:44px">Who is responsible for what?</h3>
+      <div class="grid g2" style="margin-bottom:18px">
+        <div class="card">
+          <h3>Responsible party</h3>
+          <p>Decides the purpose and means of processing. Typically the cooperative and/or processor, depending on the
+            arrangement.</p>
+        </div>
+        <div class="card">
+          <h3>Operator</h3>
+          <p>Processes on someone's behalf, such as a platform or cloud provider. POPIA requires a written contract
+            imposing security measures.</p>
+        </div>
+      </div>
+      <div class="grid g3">
+        <div class="card">
+          <h3>Cooperative</h3>
+          <p>Keeps member records, explains data practices.</p>
+        </div>
+        <div class="card">
+          <h3>Processor</h3>
+          <p>Uses production and delivery data for planning and fulfilment.</p>
+        </div>
+        <div class="card">
+          <h3>Retailers</h3>
+          <p>See availability, quantities, delivery dates and traceability only.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <p><strong>Farmers' rights:</strong> request access, correct errors, object to certain processing, withdraw
+          consent where it is the basis, request deletion where legally applicable, and complain. Deletion is not
+          unconditional, since some records must be kept for legal, accounting or food-safety reasons. Cross-border
+          transfers (e.g. foreign cloud hosting) need their own POPIA check.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Information Systems Consultant Group (V1-3)</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
