@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Management | AgriIS</title>
+
+    <style>
+        body {
+            background-color: #f4f7f5;
+            font-family: Arial, sans-serif;
+            color: #263646;
+            margin: 0;
+        }
+
+        h1 {
+            color: #245a48;
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+    
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+
+        .top-navbar {
+            background-color: #183047;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            border-bottom: 2px solid #79c79c;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+        }
+
+        .nav-brand {
+            color: white;
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .nav-brand span {
+            color: #79c79c;
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            display: inline-block;
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            color: #183047;
+            background-color: #79c79c;
+            font-weight: 600;
+        }
+
+        /* Small-screen adjustments */
+        @media (max-width: 900px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 12px 16px;
+                gap: 10px;
+            }
+
+            .nav-menu {
+                justify-content: center;
+                gap: 6px;
+            }
+
+            .nav-link {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+        }
+
+
+    .hero {
+        background: linear-gradient(120deg, #183047, #326b59);
+        color: white;
+        padding: 65px 0;
+    }
+
+    .hero h1 {
+        color: white;
+        font-size: 42px;
+        margin: 0 0 12px;
+    }
+
+    .hero p {
+        color: #e2f0e9;
+        font-size: 18px;
+        max-width: 700px;
+        margin: 0;
+    }
+
+
+
+    main {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .content-section {
+        background-color: white;
+        padding: 30px;
+        margin-bottom: 25px;
+        border-radius: 12px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .content-section h2 {
+        color: #245a48;
+        font-size: 26px;
+        margin-top: 0;
+    }
+
+    .content-section p {
+        color: #475569;
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .info-card {
+        background-color: #edf6f0;
+        border-left: 4px solid #79c79c;
+        border-radius: 8px;
+        padding: 22px;
+    }
+
+    .info-card h3 {
+        color: #245a48;
+        margin-top: 0;
+    }
+
+    @media (max-width: 700px) {
+        .cards {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .quality-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-top: 25px;
+    }
+
+    .quality-card {
+        background-color: #f0f7f2;
+        border: 1px solid #d5e8db;
+        border-radius: 10px;
+        padding: 24px;
+        transition: transform 0.2s ease,
+                    box-shadow 0.2s ease;
+    }
+
+    .quality-card h3 {
+        color: #245a48;
+        margin-top: 0;
+    }
+
+    .quality-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Mobile layout */
+    @media (max-width: 700px) {
+        .quality-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .dashboard {
+        background: #f0f7f2;
+        padding: 25px;
+        border-radius: 12px;
+        margin-top: 25px;
+    }
+
+    .dashboard h3 {
+        color: #245a48;
+    }
+
+    .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin: 25px 0;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        border: 1px solid #d5e8db;
+    }
+
+    .stat-card h4 {
+        color: #64748b;
+        font-size: 14px;
+        margin: 0 0 10px;
+    }
+
+    .stat-card p {
+        color: #245a48;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .harvest-inputs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .harvest-inputs label {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        font-weight: bold;
+    }
+
+    .harvest-inputs input {
+        padding: 10px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        width: 100%;
+    }
+
+    #update-dashboard {
+        background: #326b59;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 12px 20px;
+        cursor: pointer;
+    }
+
+    #update-dashboard:hover {
+        background: #245a48;
+    }
+
+    @media (max-width: 700px) {
+        .dashboard-stats,
+        .harvest-inputs {
+            grid-template-columns: 1fr;
+        }
+    }
+
+
+
+    footer {
+        background-color: #e9ecef;
+        text-align: center;
+        padding: 20px;
+        font-size: 0.9rem;
+        color: #64748b;
+        margin-top: 40px;
+    }
+
+    footer p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #64748b;
+    }
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <!-- "#" is a placeholder for other members file names -->
+    
+    <nav class="top-navbar">
+        <div class="nav-container">
+
+            <a href="#" class="nav-brand">
+                AgriIS <span>| Consulting Hub</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li>
+                    <a href="data-management.html" class="nav-link active">
+                        1. Data Management
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        2. Ethics &amp; POPIA
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        3. AI &amp; DSS
+                    </a>
+                </li>
+                <li>
+                    <a href="enterprise-systems.html" class="nav-link">
+                        4. Enterprise Systems
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        5. System Adaptation
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Data &amp; Information Management</h1>
+            <p>AgriTech and Food Supply Chain</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="content-section">
+            <h2>Understanding Data Management</h2>
+            <p>Data management is the act of gathering data and how it can be stored, maintained and organized. Take a tomatoes farm as an example with three days worth of data. Monday 150kg harvested, Tuesday 140 harvested, Wednesday 160kg harvested. The farmer can use this information/data to try and better help his farm. Asking questions like why Wednesday has the most harvested and why Tuesday has less. The farmer harvested 450kg over the three days this is turning the data into useful information. After gathering the information the farmer uses it to create plans to fix this issue. investigating the workers, checking machinery or farming fields.</p>
+        </section>
+
+
+        <section class="content-section">
+            <h2>Data Across the Supply Chain</h2>
+
+            <div class="cards">
+
+                <article class="info-card">
+                    <h3>Farmers</h3>
+                    <p>Farmers can collect information about the quantity harvested, employee/machinery effectiveness and product quality. This information helps because its the root of the whole production figuring this out could help manage what comes next.</p>
+                </article>
+
+                <article class="info-card">
+                    <h3>Processing Facilities</h3>
+                    <p>Processing facilities can use this data to better their way of doing their work. Like if the storage is over flowing or there's not enough delivery vehicle.
+</p>
+                </article>
+
+                <article class="info-card">
+                    <h3>Retailers</h3>
+                    <p>Retailers can look at the sales and provide feedback, if one farms sales is lower it can be investigated and the problem can be fixed if there is one.</p>
+                </article>
+
+            </div>
+        </section>
+
+
+        
+    <section class="content-section">
+        <h2>Information Quality</h2>
+
+        <p>
+            <!-- Add your own introduction here -->
+        </p>
+
+        <div class="quality-grid">
+
+            <article class="quality-card">
+                <h3>Accuracy</h3>
+                <p>Accuracy helps the farmer make sure the data is in line with reality, the farmer records 450kg harvested while the actual amount was only 50kg.</p>
+            </article>
+
+            <article class="quality-card">
+                <h3>Completeness</h3>
+                <p> Completeness helps the farmer make sure he has everything recorded, a delivery cant just have the delivery cost but no location to go to</p>
+            </article>
+
+            <article class="quality-card">
+                <h3>Consistency</h3>
+                <p>Consistency ensures information doesn't collide with each other, you cant record one stock in kg but the other stock in tons and then write everything in kg on your system.</p>
+            </article>
+
+            <article class="quality-card">
+                <h3>Timeliness</h3>
+                <p>Timeliness ensuring everything is up to date, if an employee changed the total amount that needs to be delivered but set it in wrong or on the wrong date your delivery wont be correct.</p>
+            </article>
+
+        </div>
+    </section>
+
+
+        
+    <section class="content-section">
+        <h2>Dashboards &amp; Data Visualisation</h2>
+
+        <p>
+            <!-- Add your own explanation here -->
+        </p>
+
+        <div class="dashboard">
+
+            <h3>Tomato Harvest Dashboard</h3>
+            <p>Demonstration data for a farming cooperative.</p>
+
+            <div class="dashboard-stats">
+
+                <div class="stat-card">
+                    <h4>Total Harvest</h4>
+                    <p id="total-harvest">450 kg</p>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Daily Average</h4>
+                    <p id="average-harvest">150 kg</p>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Highest Harvest</h4>
+                    <p id="highest-day">Wednesday</p>
+                </div>
+
+            </div>
+
+            <h3>Harvest Records</h3>
+
+            <div class="harvest-inputs">
+                <label>
+                    Monday (kg)
+                    <input type="number" id="monday" value="150" min="0">
+                </label>
+
+                <label>
+                    Tuesday (kg)
+                    <input type="number" id="tuesday" value="140" min="0">
+                </label>
+
+                <label>
+                    Wednesday (kg)
+                    <input type="number" id="wednesday" value="160" min="0">
+                </label>
+            </div>
+
+            <button type="button" id="update-dashboard">
+                Update Dashboard
+            </button>
+
+        </div>
+    </section>
+
+
+</main>
+
+
+<footer>
+    <div class="container">
+        <p>Information Systems Consultant Group (V1-3)</p>
+    </div>
+</footer>
+
+
+</body>
+</html>
