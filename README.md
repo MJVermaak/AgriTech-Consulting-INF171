@@ -1,8 +1,8 @@
 # INF1781 Group Project: AgriTech Consulting Resource
 
-This repository contains our group's website for the INF1781 Information Systems Consultant project[cite: 1, 3]. We chose **Scenario 4: AgriTech and Food Supply Chain Management**[cite: 4]. 
+This repository contains our group's website for the INF1781 Information Systems Consultant project. We chose **Scenario 4: AgriTech and Food Supply Chain Management**. 
 
-The goal of this website is to help a smallholder farming cooperative and an agri-processing company understand how information systems can improve their operations, solve communication problems, and prevent food spoilage[cite: 4].
+The goal of this website is to help a smallholder farming cooperative and an agri-processing company understand how information systems can improve their operations, solve communication problems, and prevent food spoilage.
 
 ## Team Members & Topics
 
@@ -13,11 +13,11 @@ The goal of this website is to help a smallholder farming cooperative and an agr
 
 ## Project Files
 
-The website is split into different pages for each topic[cite: 11]:
-* `data-management.html`[cite: 11]
-* `ethics-privacy-security.html`[cite: 11]
-* `enterprise-systems.html`[cite: 11]
-* `system-adaptation.html`[cite: 11]
+The website is split into different pages for each topic:
+* `data-management.html`
+* `ethics-privacy-security.html`
+* `enterprise-systems.html`
+* `system-adaptation.html`
 
 ## How to Run the Website
 
@@ -30,4 +30,4 @@ You don't need any special software to view this project.
 
 ## AI Disclaimer
 
-For this project, Artificial Intelligence was only used as a guide to help with the HTML and CSS coding to make the website look professional[cite: 6]. AI was not used to do any of the research, generate ideas, or write the actual text content for our topics[cite: 6]. All the written information and design reasoning was done entirely by the group members[cite: 6].
+For this project, Artificial Intelligence was only used as a guide to help with the HTML and CSS coding to make the website look professional. AI was not used to do any of the research, generate ideas, or write the actual text content for our topics. All the written information and design reasoning was done entirely by the group members.
