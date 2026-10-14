@@ -26,7 +26,6 @@ You don't need any special software to view this project.
 2. Double-click on any of the `.html` files to open them in your web browser (like Chrome, Edge, or Safari).
 3. Use the navigation bar at the top of the pages to click through the different topics.
 
-*(Note: If the GitHub Pages link is active, you can view the live site here: `[Insert Your GitHub Pages Link]`)*
 
 ## AI Disclaimer
 
